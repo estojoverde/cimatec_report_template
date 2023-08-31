@@ -1,0 +1,47 @@
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
+\documentclass[../../../main.tex]{subfiles}
+\graphicspath{ {\subfix{../../../CTsettings/figures/}} {./figures/} {../figures/}}
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
+
+\begin{document}
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
+\onlyinsubfile{
+    \renewcommand{\onlyinsubfile}[1]{}
+    \renewcommand{\notinsubfile}[1]{#1}
+
+    \renewcommand{\onlyonmainfile}[1]{}
+    \renewcommand{\onlyonpartfile}[1]{}
+    \renewcommand{\onlyonchapterfile}[1]{#1}
+    \renewcommand{\onlyonsectionfile}[1]{}
+
+    \gdef\CTMcalibrefontpath{../../../CTsettings/calibrefontfiles/}
+    \setcalibrefont{\CTMcalibrefontpath}
+    
+    \fancypagestyle{plain}{\pagestyle{CTstylewithpage}}
+    \pagestyle{CTstylewithpage}
+
+}
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
+
+\onlyonchapterfile{
+}
+
+
+
+
+\chapter{Potatoes are nice}
+
+
+Gollum : What's taters, precious? What's taters, eh?
+
+Sam : *Po-tay-toes!* Boil 'em, mash 'em, stick 'em in a stew... Lovely big golden chips with a nice piece of fried fish.
+
+\lipsum[3-12]
+
+
+\subfile{./potato_folder/section_monalisa}
+
+
+
+
+\end{document}

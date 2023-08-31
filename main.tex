@@ -1,10 +1,63 @@
 \documentclass[12pt, a4paper]{cimatec}
 
 
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
+\newcommand{\onlyinsubfile}[1]{#1}
+\newcommand{\notinsubfile}[1]{}
+
+\newcommand{\onlyonmainfile}[1]{}
+\newcommand{\onlyonpartfile}[1]{}
+\newcommand{\onlyonchapterfile}[1]{}
+\newcommand{\onlyonsectionfile}[1]{}
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
+
+
+
+
+
+
+\usepackage{subfiles} % Best loaded last in the preamble
+
 \begin{document}
 
-\chapter{Introdução}
-\lipsum[1-2]
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
+\renewcommand{\onlyinsubfile}[1]{}
+\renewcommand{\notinsubfile}[1]{#1}
+
+\renewcommand{\onlyonmainfile}[1]{#1}
+\onlyonmainfile{
+\gdef\CTMcalibrefontpath{CTsettings/calibrefontfiles/}
+\setcalibrefont{\CTMcalibrefontpath}}
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
+
+
+
+\CTdocumenttype{Relatório Técnico}
+\CTdocumenttitle{Storage-HPC}
+\CTdocumentsubtitle{Macroentrega Final}
+\CTdepartment{HPC}
+\CTdocumentdate{Setembro/2023}
+\CTdocumentlocation{SENAI/CIMATEC - \CTMdepartment \\
+\CTMsenaiaddress } 
+
+              
+\CTmakefrontpage
+
+\tableofcontents
+\newpage
+
+\pagenumbering{arabic}
+\fancypagestyle{plain}{\pagestyle{CTstylewithpage}} 
+
+
+
+\subfile{Parts/PartExample/part_example}
+
+
+
+
+
+
 
 
 \end{document}
