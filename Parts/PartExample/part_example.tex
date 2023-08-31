@@ -1,0 +1,51 @@
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
+\documentclass[../../main.tex]{subfiles}
+\graphicspath{ {\subfix{../../CTsettings/figures/}} {./figures/} }
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
+
+
+\begin{document}
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
+\onlyinsubfile{
+    \renewcommand{\onlyinsubfile}[1]{}
+    \renewcommand{\notinsubfile}[1]{#1}
+
+    \renewcommand{\onlyonmainfile}[1]{}
+    \renewcommand{\onlyonpartfile}[1]{#1}
+    \renewcommand{\onlyonchapterfile}[1]{}
+    \renewcommand{\onlyonsectionfile}[1]{}
+
+    \gdef\CTMcalibrefontpath{../../CTsettings/calibrefontfiles/}
+    \setcalibrefont{\CTMcalibrefontpath}
+    
+    \fancypagestyle{plain}{\pagestyle{CTstylewithpage}}
+    \pagestyle{CTstylewithpage}
+    }
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
+
+
+
+\CTpart{Part Example}
+
+\lipsum[8-12]
+\onlyonpartfile{
+}
+\important[color=green,name=Marcelo]{Este texto está em destaque entre duas chamadas a lipsum, no início de uma parte, antes do primeiro subfile ser chamado}
+
+\onlyonpartfile{
+\important[color=blue,name=Marcelo]{Este texto está logo abaixo, mas ele só será exibido quando a parte, tão e somente a parte, for compilada. }
+}
+
+\begin{comment}
+    Isso acontece porque foi usado o comando \onlyonpartfile{}. E esse trecho não será compilado de maneira alguma, pois está dentro do ambiente de comentário. 
+\end{comment}
+
+\lipsum[8-12]
+
+\subfile{./Chapters/chapter_potato}
+
+
+
+
+
+\end{document}
