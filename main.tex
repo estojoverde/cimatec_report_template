@@ -1,10 +1,12 @@
 \documentclass[12pt, a4paper]{cimatec}
 
+%IMPORTANT TO SET DOCUMENT LEVEL
+\CTsetDocumentLevel{public}
+
 
 %%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
 \newcommand{\onlyinsubfile}[1]{#1}
 \newcommand{\notinsubfile}[1]{}
-
 \newcommand{\onlyonmainfile}[1]{}
 \newcommand{\onlyonpartfile}[1]{}
 \newcommand{\onlyonchapterfile}[1]{}
@@ -16,14 +18,15 @@
 
 
 
-\usepackage{subfiles} % Best loaded last in the preamble
 
-\begin{document}
 
 %%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
+\usepackage{subfiles} % Best loaded last in the preamble
+% \CTmakeDraft
+\begin{document}
+% \CTprintDraftStatus
 \renewcommand{\onlyinsubfile}[1]{}
 \renewcommand{\notinsubfile}[1]{#1}
-
 \renewcommand{\onlyonmainfile}[1]{#1}
 \onlyonmainfile{
 \gdef\CTMcalibrefontpath{CTsettings/calibrefontfiles/}
@@ -32,12 +35,14 @@
 
 
 
+
+
 \CTdocumenttype{Relatório Técnico}
 \CTdocumenttitle{Storage-HPC}
 \CTdocumentsubtitle{Macroentrega Final}
-\CTdepartment{HPC}
-\CTdocumentdate{Setembro/2023}
-\CTdocumentlocation{SENAI/CIMATEC - \CTMdepartment \\
+\CTdepartment{Robótica}
+\CTdocumentdate{Outubro/2023}
+\CTdocumentlocation{SENAI CIMATEC - \CTMdepartment \\
 \CTMsenaiaddress } 
 
               
@@ -46,8 +51,24 @@
 \tableofcontents
 \newpage
 
+% Print list of tables
+\listoftables
+\newpage
+
+% Print list of figures
+\listoffigures
+\newpage
+
+% Print list of algorithms
+\lstlistoflistings
+\newpage
+
+
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
 \pagenumbering{arabic}
 \fancypagestyle{plain}{\pagestyle{CTstylewithpage}} 
+\pagestyle{plain}
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
 
 
 
@@ -55,6 +76,12 @@
 
 
 
+
+
+\CTpart{Bibliografia}\label{part:bibliography}
+
+\bibliographystyle{seg}
+\bibliography{references.bib}
 
 
 

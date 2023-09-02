@@ -1,0 +1,79 @@
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
+\documentclass[../../../../main.tex]{subfiles}
+\graphicspath{ {\subfix{../../../../CTsettings/figures/}} {./figures/} {../figures/} {../../figures/}}
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
+
+\begin{document}
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
+\onlyinsubfile{
+    \renewcommand{\onlyinsubfile}[1]{}
+    \renewcommand{\notinsubfile}[1]{#1}
+
+    \renewcommand{\onlyonmainfile}[1]{}
+    \renewcommand{\onlyonpartfile}[1]{}
+    \renewcommand{\onlyonchapterfile}[1]{}
+    \renewcommand{\onlyonsectionfile}[1]{#1}
+
+    \gdef\CTMcalibrefontpath{../../../../CTsettings/calibrefontfiles/}
+    \setcalibrefont{\CTMcalibrefontpath}
+    
+    \fancypagestyle{plain}{\pagestyle{CTstylewithpage}}
+    \pagestyle{CTstylewithpage}
+
+}
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
+\onlyonsectionfile{
+\newpage
+\section*{Bibliografia}
+\bibliographystyle{seg}
+\bibliography{references.bib}
+}
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
+
+
+\begin{lstlisting}[language=Python, label={alg:dummycode}, caption={Dummy Code}]
+import random
+
+def generate_nonsense_word(length):
+    vowels = 'aeiou'
+    consonants = 'bcdfghjklmnpqrstvwxyz'
+    word = ''
+    for _ in range(length):
+        if random.choice([True, False]):
+            word += random.choice(vowels)
+        else:
+            word += random.choice(consonants)
+    return word
+
+def create_silly_sentence():
+    subjects = ['Unicorn', 'Banana', 'Robot', 'Penguin', 'Ninja']
+    verbs = ['dances', 'eats', 'flies', 'jumps', 'sleeps']
+    adverbs = ['joyfully', 'awkwardly', 'quickly', 'loudly', 'gently']
+    adjectives = ['sparkly', 'silly', 'gigantic', 'goofy', 'bumpy']
+    
+    sentence = random.choice(subjects) + ' ' + random.choice(verbs) + ' ' + generate_nonsense_word(5)
+    sentence += ' ' + random.choice(adverbs) + ' ' + random.choice(adjectives) + ' ' + random.choice(verbs)
+    sentence += ' ' + random.choice(subjects) + '!\n'
+    
+    return sentence
+
+if __name__ == "__main__":
+    for _ in range(100):
+        print(create_silly_sentence())
+
+\end{lstlisting}
+
+
+\end{document}

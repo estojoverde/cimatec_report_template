@@ -36,7 +36,6 @@
 
 
 
-
 %%%%%% GENERAL PACKAGES %%%%%%
 %%%% TEXT PACKAGES %%%%
 % \usepackage[scaled]{helvet} %font Helvetica
@@ -66,6 +65,8 @@
 \usepackage{multirow} %enables multirow tables
 \usepackage{longtable} %enables long tables; used for tables
 \usepackage{array} %enables array manipulation; used for tables
+\usepackage{rotating} %for rotating tables
+\usepackage{placeins}
 
 
 
@@ -119,15 +120,89 @@
 \usepackage{keyval} %enables key value pairs; used for custom commands
 \usepackage{datetime} %allows date and time manipulation
 %\usepackage{tocloft} %enables toc personalization
+\usepackage{subcaption}
 \makeatletter
 \@ifpackageloaded{subfig}
     {\usepackage[titles,subfigure]{tocloft}}
     {\usepackage[titles]{tocloft}}
 \makeatother
 
+\usepackage{etoolbox} % allows boolean logic inside model
+
 %\usepackage{titletoc} %enables toc personalization
 
 % %%%%%% GENERAL SETTINGS %%%%%%
+
+
+\newcommand{\CTsetDocumentLevel}[1]{
+    
+     % \gdef\CTMsealpath{CTsettings/figures/seal_confidential.png}
+
+     % \gdef\CTMDocumentLevel{#1}
+     % %\gdef\CTMDocumentLevel\CTDocumentLevel
+     % \PackageWarning{CTsetDocumentLevel}{LABEL CHOSEM? Path= \"\CTMsealpath\" - LEVEL: \CTMDocumentLevel }
+  % \edef\lowercaselevel\lowercase{#1}%
+  % \PackageWarning{CTsetDocumentLevel}{LABEL \lowercase{#1}  #1  }
+
+  \def\inputlevel{#1}%
+  
+  
+  \expandafter\ifstrequal\expandafter{\inputlevel}{public}{%
+     \gdef\CTMsealpath{CTsettings/figures/seal_public.png}
+     \gdef\CTMDocumentLevel{\inputlevel}
+  }{%?
+    \expandafter\ifstrequal\expandafter{\inputlevel}{restricted}{%
+       \gdef\CTMsealpath{CTsettings/figures/seal_restricted.png}
+       \gdef\CTMDocumentLevel{\inputlevel}
+     }{%?
+        \expandafter\ifstrequal\expandafter{\inputlevel}{internal}{%
+           \gdef\CTMsealpath{CTsettings/figures/seal_internal.png}
+           \gdef\CTMDocumentLevel{\inputlevel}
+         }{%?
+            \expandafter\ifstrequal\expandafter{\inputlevel}{confidential}{%
+               \gdef\CTMsealpath{CTsettings/figures/seal_confidential.png}
+               \gdef\CTMDocumentLevel{\inputlevel}
+             }{%?
+                 \gdef\CTMsealpath{CTsettings/figures/seal_confidential.png}
+                 \gdef\CTMDocumentLevel{confidential}
+                 \PackageWarning{CTsetDocumentLevel}{DEFAULT LABEL IS CONFIDENTIAL }
+             
+             }
+         
+         }
+     
+     }
+  }
+%debug
+  %\PackageWarning{CTsetDocumentLevel}{CHOSEN LABEL: \CTMDocumentLevel }
+}
+    
+
+% %     \ifstrequal{#1}{internal}{%
+% %       \gdef\CTMsealpath{"/CTsettings/figures/seal_internal.png"}
+% %       \def\CTDocumentLevel{#1}
+% %     }{%
+% %       \ifstrequal{#1}{restricted}{%
+% %         \gdef\CTMsealpath{"/CTsettings/figures/seal_restricted.png"}
+% %         \def\CTDocumentLevel{#1}
+% %       }{%
+% %          \ifstrequal{#1}{confidential}{%
+% %             \gdef\CTMsealpath{"/CTsettings/figures/seal_confidential.png"}
+% %             \def\CTDocumentLevel{#1}
+% %          }{%
+% %             \PackageWarning{\CTsetDocumentLevel}{UNRECOGNIZED LEVEL. It can be public, internal, restricted or confidential. }
+% %             \def\CTDocumentLevel{NONE}
+% %          }%
+% %       }%
+% %     }%
+% %   }%
+%    \PackageWarning{\CTsetDocumentLevel}{LABEL CHOSEM? \CTDocumentLevel - \CTMsealpath }
+% }
+
+    
+
+
+
 
 %%%% CUSTOM GLOBAL VARIABLES %%%%
 \gdef\CTMtemplateversion{"1.2"} %sets template version to 1.2
@@ -201,7 +276,7 @@
 
 
 
-% %%%% COLOR SETTINGS %%%%
+%%%% COLOR SETTINGS %%%%
 \definecolor{title-block-color}{RGB}{0,32,96}
 \definecolor{date-block-color}{RGB}{92,136,169}
 \definecolor{RoyalBlue}{RGB}{65, 105, 225}
@@ -239,33 +314,27 @@
 \setlength{\headsep}{55 pt}
 \setlength{\textheight}{0.9\textheight}
 
-
-    
-%\DeclareUnicodeCharacter{200B}{{\hskip 0pt}} %enables zero width space character for character U+200B
 \renewcommand{\familydefault}{\sfdefault} %sets default font to sans serif
 
 
 %%%% LANGUAGE SETTINGS %%%%
-\renewcommand{\lstlistingname}{Algoritmo}% Listing -> Algorithm
 
 
-% %%%% PAGE LAYOUT SETTINGS %%%%
 
-    % \textbf{\large \CTMdepartment \CTMdocumentlocation } \\ \\
-
-% \renewcommand{\footrule}{%
-% \color{RoyalBlue}
-%     \vspace{-8pt}\hrulefill%
-%     \hrulefill%
-%     \hspace*{-1.7cm}
-%   }
+%%%% PAGE LAYOUT SETTINGS %%%%
 
 
-% % creates a new page style with page number on the right
+
+% creates a new page style with page number on the right
 \fancypagestyle{CTstylewithpage}{%
   \fancyhf{} % Clear all header and footer fields
   \renewcommand{\headrulewidth}{0pt} % Remove header rule
   \renewcommand{\footrulewidth}{0pt} % Remove footer rule
+
+  \setlength{\headheight}{28pt} % Set headheight to satisfy fancyhdr warning
+  \addtolength{\topmargin}{-2.5pt} % Adjust topmargin to compensate
+
+  
   \fancyfoot[L]{%
     \color{RoyalBlue}\CTMsenaiaddress
   } % Left footer content
@@ -274,25 +343,57 @@
     Página \thepage\ de \pageref*{LastPage}}%
   } % Right footer content
   \fancyfoot[C]{%
-    \vtop{\vskip-0.5ex\hbox{\includegraphics[width=2cm]{CTsettings/figures/confidential.png}}}
+    \vtop{\vskip-18pt\hbox{\includegraphics[width=2cm]{\CTMsealpath}}}
+      % @BUG  / POTENTIAL BUG HERE:
+        % It should get margins from global variables, but I cant make it work. So, I'm doing it manually.
+      % \fancyhead[C]{\vspace{0.2cm}\tikz[overlay,remember picture]\draw[RoyalBlue,line width=1pt] (current page.north west) ++ (\the\oddsidemargin,-2m) -- ++ (\textwidth,0);}
+      % \fancyhead[C]{\vspace{0.2cm}\tikz[overlay,remember picture]\draw[RoyalBlue,line width=1pt] (current page.north west) ++ (-\oddsidemargin,-0.5cm) -- ++ (\textwidth,0);}
+    \tikz[overlay,remember picture]\draw[RoyalBlue,line width=1pt] (current page.south west) ++ (2.4cm,3cm) -- ++ (\textwidth,0);
   } % Center footer content
+
+  \fancyheadoffset{0.03 cm}
+  \fancyhead[L]{
+    \begin{picture}
+    (0,0)\put(0,-18pt){\includegraphics[width=3.5cm]{CTsettings/figures/senai_logo.png}} 
+    \end{picture}
+  }
+
+  \fancyhead[C]{\tikz[overlay,remember picture]\draw[RoyalBlue,line width=1pt] (current page.north west) ++ (2.4cm,-2cm) -- ++ (\textwidth,0);}
 }
+
 % creates a new page style without page number
 \fancypagestyle{CTstylenopage}{%
   \fancyhf{} % Clear all header and footer fields
   \renewcommand{\headrulewidth}{0pt} % Remove header rule
   \renewcommand{\footrulewidth}{0pt} % Remove footer rule
+
+  \setlength{\headheight}{28pt} % Set headheight to satisfy fancyhdr warning
+  \addtolength{\topmargin}{-2.5pt} % Adjust topmargin to compensate
+
+  
   \fancyfoot[L]{%
     \color{RoyalBlue}\CTMsenaiaddress
   } % Left footer content
   \fancyfoot[R]{%
-    \raisebox{0.3cm}{
-        \vtop{\color{RoyalBlue}\textbf{www.senaicimatec.com.br}}\hspace*{-1.7cm}
-    }
+    \color{RoyalBlue}{\textbf{www.senaicimatec.com.br}}
   } % Right footer content
-  \fancyfoot[C]{%%enables toc personalization
-    \vtop{\vskip-0.5ex\hbox{\includegraphics[width=2cm]{CTsettings/figures/confidential.png}}}
+  \fancyfoot[C]{%
+    \vtop{\vskip-18pt\hbox{\includegraphics[width=2cm]{\CTMsealpath}}}
+      % @BUG  / POTENTIAL BUG HERE:
+        % It should get margins from global variables, but I cant make it work. So, I'm doing it manually.
+      % \fancyhead[C]{\vspace{0.2cm}\tikz[overlay,remember picture]\draw[RoyalBlue,line width=1pt] (current page.north west) ++ (\the\oddsidemargin,-2m) -- ++ (\textwidth,0);}
+      % \fancyhead[C]{\vspace{0.2cm}\tikz[overlay,remember picture]\draw[RoyalBlue,line width=1pt] (current page.north west) ++ (-\oddsidemargin,-0.5cm) -- ++ (\textwidth,0);}
+    \tikz[overlay,remember picture]\draw[RoyalBlue,line width=1pt] (current page.south west) ++ (2.4cm,3cm) -- ++ (\textwidth,0);
   } % Center footer content
+
+  \fancyheadoffset{0.03 cm}
+  \fancyhead[L]{
+    \begin{picture}
+    (0,0)\put(0,-18pt){\includegraphics[width=3.5cm]{CTsettings/figures/senai_logo.png}} 
+    \end{picture}
+  }
+
+  \fancyhead[C]{\tikz[overlay,remember picture]\draw[RoyalBlue,line width=1pt] (current page.north west) ++ (2.4cm,-2cm) -- ++ (\textwidth,0);}
 }
 
 % redefine the plain page style, later in document it needs to be redefined again as CTstylewithpage
@@ -313,7 +414,7 @@
 % }
 
 
-%  %sets page geometry specifications
+%sets page geometry specifications
 \geometry{
 	a4paper, %sets paper size to A4, can be changed to letterpaper, etc.
 	textwidth=460pt, %sets text width to 460pt, which is the default for A4 and roughly translates to 16.3 centimeters
@@ -323,7 +424,7 @@
 
 
 
-% % creates a modified version of the \part command that adds part number to chapter numbering
+% creates a modified version of the \part command that adds part number to chapter numbering
 \makeatletter
 \newcommand*{\CTpart}[1]{%
   \part{#1}% Call the original \part command with the provided argument
@@ -334,9 +435,9 @@
 \makeatother
 
 
-% %%%% DATABASE SETTINGS %%%%
+%%%% DATABASE SETTINGS %%%%
 
-% %% REVISIONS DATABASE SETTINGS %%
+%% REVISIONS DATABASE SETTINGS %%
 \DTLnewdb{CTrevisions}
 
 \newcommand{\CTrevision}[4]{ {
@@ -369,13 +470,13 @@
 
 
 
-% %%%% MATH SETTINGS %%%%
+%%%% MATH SETTINGS %%%%
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil} %forces ceil to be a paired delimiter
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor} %forces floor to be a paired delimiter
 
 
 
-% %%%% FRONT PAGE SETTINGS %%%%
+%%%% FRONT PAGE SETTINGS %%%%
 
 \newcommand\CTBGFrontCover{
     \put(0,0){
@@ -383,7 +484,7 @@
             \vfill
             \centering
             \includegraphics[width=\paperwidth,height=\paperheight]
-                {CTsettings/figures/front_cover.pdf}
+                {CTsettings/figures/front_cover_2.png}
             \vfill
         }
     }
@@ -481,6 +582,36 @@
     % linktocpage=true, % Link page numbers in table of contents and index
     }
 
+
+%% ALGORITHMS SETTINGS %%
+\renewcommand{\lstlistingname}{Algoritmo}% Listing -> Algorithm
+\renewcommand{\lstlistlistingname}{Lista de Algoritmos}
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{CTalgorithmstyle}{
+  backgroundcolor=\color{backcolour}, commentstyle=\color{codegreen},
+  keywordstyle=\color{magenta},
+  numberstyle=\tiny\color{codegray},
+  stringstyle=\color{codepurple},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=false,         
+  breaklines=true,                 
+  captionpos=b,                    
+  keepspaces=true,                 
+  numbers=left,                    
+  numbersep=5pt,                  
+  showspaces=false,                
+  showstringspaces=false,
+  showtabs=false,                  
+  tabsize=2
+}
+\lstset{style=CTalgorithmstyle}
+
+
 %% TABLE OF CONTENTS SETTINGS %%
 
 % Adjust space between label and entry text
@@ -500,10 +631,30 @@
 % %Suppress Bibliography Title page
 \renewcommand{\bibsection}{}
 
+\let\oldcite\cite
+\renewcommand{\cite}[1]{\citet{#1}}
 
 
+%% DRAFT MODE SETTINGS %%
+% \newbool{CTdraftmode}
 
+% \ifbool{CTdraftmode}{%
+%     % Draft mode is enabled
+%     \let\oldincludegraphics\includegraphics
+%     \renewcommand{\includegraphics}[2][]{%
+%     \oldincludegraphics[resolution=30, #1]{#2}%
+%     }
+% }{%
+%     % Draft mode is disabled
+% }
 
+% % \boolfalse{CTdraftmode} % by default, not in draft mode
+% \booltrue{CTdraftmode} % by default, in draft mode
+
+% \newcommand{\CTmakeDraft}{\booltrue{CTdraftmode}}
+% \newcommand{\CTprintDraftStatus}{%
+%     Draft mode is \ifbool{CTdraftmode}{enabled}{disabled}.
+% }
 
 
 
@@ -545,8 +696,8 @@
 }
 \makeatother
 
-
-
+%simplifies the life of everyone! =] 
+\newcommand{\quotes}[1]{``#1''}
 
 
 
