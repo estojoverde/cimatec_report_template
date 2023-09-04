@@ -44,7 +44,7 @@
 \usepackage{fontspec}
 
 \usepackage[obeyspaces,hyphens]{url} %enables url and breaks long urls
-\usepackage[brazilian]{babel} %enables brazilian portuguese
+\usepackage[english,main=brazilian]{babel} %enables brazilian portuguese
 % \usepackage{microtype} %enables microtype; used for text
 \usepackage{hyperref} %enables hyperlinks
 \usepackage{sectsty} %used to personalize headings of parts, chapters, sections and so on
@@ -67,6 +67,7 @@
 \usepackage{array} %enables array manipulation; used for tables
 \usepackage{rotating} %for rotating tables
 \usepackage{placeins}
+% \usepackage{abstract}
 
 
 
@@ -318,6 +319,52 @@
 
 
 %%%% LANGUAGE SETTINGS %%%%
+
+
+
+
+%%%% ABSTRACT SETTINGS %%%%
+
+% Define the CTabstractBase command
+\newcommand{\CTabstractBase}[3]{%
+    \begin{center}
+    \chapter*{\MakeUppercase{#1}}
+    \addcontentsline{toc}{chapter}{\MakeUppercase{#1}}
+
+    % Check the second argument for conditional formatting
+    \ifthenelse{\equal{#2}{english}}{%
+        \selectlanguage{english}
+    }{%
+        % Do nothing
+    }
+    
+    % The abstract text
+    \emph{#3}
+    \end{center}
+}
+
+% Define the CTresumo command
+\newcommand{\CTresumo}[1]{%
+    \CTabstractBase{Resumo}{brazilian}{#1}
+}
+
+% Define the CTabstract command
+\newcommand{\CTabstract}[1]{%
+    \CTabstractBase{Abstract}{english}{#1}
+    \selectlanguage{brazilian}
+}
+
+
+
+
+% \begin{CTabstract}{RESUMO}
+% \lipsum[1-2]
+% \end{CTabstract}
+
+% \begin{CTabstract}{ABSTRACT}[english]
+% \lipsum[2-3]
+% \end{CTabstract}
+
 
 
 
