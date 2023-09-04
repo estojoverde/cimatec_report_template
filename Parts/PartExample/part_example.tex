@@ -26,10 +26,19 @@
 
 
 \CTpart{Part Example}
+\onlyonpartfile{
+\newpage
+%Print Glossary
+\printglossary
+\newpage
+
+%Print List of Acronyms
+\printglossary[type=\acronymtype, title=Acrônimos]
+\newpage
+}
 
 \lipsum[8-12]
-\onlyonpartfile{
-}
+
 \important[color=green,name=Marcelo]{Este texto está em destaque entre duas chamadas a lipsum, no início de uma parte, antes do primeiro subfile ser chamado}
 
 \onlyonpartfile{
@@ -42,6 +51,9 @@
 
 \lipsum[8-12]
 
+% \gls{}
+\gls{storage}
+\acrfull{smart} 
 
 \subfile{./Chapters/chapter_potato}
 
@@ -56,5 +68,5 @@
     \bibliographystyle{seg}
     \bibliography{references.bib}
 }
-%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
 \end{document}
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 

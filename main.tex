@@ -1,7 +1,9 @@
 \documentclass[12pt, a4paper]{cimatec}
 
-%IMPORTANT TO SET DOCUMENT LEVEL
-\CTsetDocumentLevel{public}
+%TOUCH IT - IMPORTANT TO SET DOCUMENT LEVEL
+%public, internal, restricted and confidential
+\CTsetDocumentLevel{restricted}
+%TOUCH IT
 
 
 %%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
@@ -21,6 +23,8 @@
 
 
 %%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
+\input{glossaries}
+\input{symbols}
 \usepackage{subfiles} % Best loaded last in the preamble
 % \CTmakeDraft
 \begin{document}
@@ -36,32 +40,61 @@
 
 
 
-
+%%% TOUCH IT - THE WHOLE DOCUMENT IS PARAMETRIZED BASED IN THESE
 \CTdocumenttype{Relatório Técnico}
 \CTdocumenttitle{Storage-HPC}
-\CTdocumentsubtitle{Macroentrega Final}
-\CTdepartment{Robótica}
+\CTdocumentsubtitle{Macroentrega 5 }
+\CTdepartment{HPC}
+\CTauthors{Equipe [Storage-HPC] SENAI-CIMATEC}
 \CTdocumentdate{Outubro/2023}
+\CTtechleader{Marcelo Silva}
+\CTprojectmanager{João da Hora}
+\CTreviewedby{Leonardo Fialho}
+\CTapprovedby{André Dantas}
+\CTprojectname{HPC Storage Monitoring Tool Prototype}
+\CTclient{Positivo Server}
 \CTdocumentlocation{SENAI CIMATEC - \CTMdepartment \\
-\CTMsenaiaddress } 
+\CTMsenaiaddress }
+%%% TOUCH IT
 
-              
+%Generate Front Page
 \CTmakefrontpage
 
+%Adds Revisions
+\CTrevision{28/08/2023}{1.0}{Início da elaboração do Relatório Técnico Final}{Equipe [StorageHPC] SENAI-CIMATEC}
+
+
+
+%Generate Info Page
+\CTmakeinfopage
+
+%Print symbol list
+\CTmakesymbolsection
+
+%Print List of Acronyms
+\printglossary[type=\acronymtype, title=Lista de Abreviaturas e Siglas]
+\newpage
+
+%Print Glossary
+\printglossary
+\newpage
+
+
+% Print Table of Contents
 \tableofcontents
 \newpage
 
-% Print list of tables
-\listoftables
-\newpage
+% % Print list of tables
+% \listoftables
+% \newpage
 
-% Print list of figures
-\listoffigures
-\newpage
+% % Print list of figures
+% \listoffigures
+% \newpage
 
-% Print list of algorithms
-\lstlistoflistings
-\newpage
+% % Print list of algorithms
+% \lstlistoflistings
+% \newpage
 
 
 %%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯.
@@ -72,7 +105,10 @@
 
 \CTresumo{Este é o resumo em português. }
 
-\CTabstract{This is the English abstract.}
+% \CTabstract{This is the English abstract.}
+
+
+
 
 
 
@@ -84,13 +120,18 @@
 
 
 
-\CTpart{Bibliografia}\label{part:bibliography}
 
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯.
+\CTpart{Bibliografia}\label{part:bibliography}
 \bibliographystyle{seg}
 \bibliography{references.bib}
 
+% \CTpart{Definições}\label{part:definitions}
+% %Print Glossary
+% \printglossary
+% \newpage
 
-
-
-
+% %Print List of Acronyms
+% \printglossary[type=\acronymtype, title=Acrônimos]
 \end{document}
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯.

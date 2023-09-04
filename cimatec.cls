@@ -68,7 +68,7 @@
 \usepackage{rotating} %for rotating tables
 \usepackage{placeins}
 % \usepackage{abstract}
-
+\usepackage[acronym]{glossaries} %might use [toc] option to appear in table of contents
 
 
 %%%% PAGE LAYOUT PACKAGES %%%%
@@ -222,6 +222,11 @@
 \gdef\CTMSAP{} %sets SAP to empty
 \def\CTSAP#1{\gdef\CTMSAP{#1}} %sets SAP to the given argument
 
+
+\gdef\CTMclient{} %sets SAP to empty
+\def\CTclient#1{\gdef\CTMclient{#1}} %sets SAP to the given argument
+
+
 \gdef\CTMtimeperiod{} %sets time period to empty
 \def\CTtimeperiod#1{\gdef\CTMtimeperiod{#1}} %sets time period to the given argument
 
@@ -281,6 +286,9 @@
 \definecolor{title-block-color}{RGB}{0,32,96}
 \definecolor{date-block-color}{RGB}{92,136,169}
 \definecolor{RoyalBlue}{RGB}{65, 105, 225}
+\definecolor{WhiteIce}{RGB}{240,240,230}
+
+
 
 
 %%%% TEXT SETTINGS %%%%
@@ -297,7 +305,6 @@
 }
 
 
-
 \renewcommand{\headrulewidth}{0pt}
 
 \renewcommand{\baselinestretch}{1.25} 
@@ -305,7 +312,8 @@
 \fontsize{12}{15}\selectfont
 
 \partfont{\fontsize{30}{30}\color{RoyalBlue}}  % sets colour of chapters
-\chapterfont{\fontsize{20}{20}\color{RoyalBlue}}  % sets colour of chapters
+\def\CTAUXchapterfont{\fontsize{20}{20}\color{RoyalBlue}}
+\chapterfont{\CTAUXchapterfont}  % sets colour of chapters
 \sectionfont{\fontsize{18}{18}\selectfont\color{RoyalBlue}}  % sets colour of sections
 \subsectionfont{\fontsize{16}{16}\color{RoyalBlue}}
 \subsubsectionfont{\fontsize{16}{16}\color{RoyalBlue}}
@@ -316,6 +324,10 @@
 \setlength{\textheight}{0.9\textheight}
 
 \renewcommand{\familydefault}{\sfdefault} %sets default font to sans serif
+
+\newcommand{\CTtitlefontstyle}[1]{%
+\fontsize{25}{25}\color{RoyalBlue}\textbf{#1}%
+}
 
 
 %%%% LANGUAGE SETTINGS %%%%
@@ -373,40 +385,40 @@
 
 
 % creates a new page style with page number on the right
-\fancypagestyle{CTstylewithpage}{%
-  \fancyhf{} % Clear all header and footer fields
-  \renewcommand{\headrulewidth}{0pt} % Remove header rule
-  \renewcommand{\footrulewidth}{0pt} % Remove footer rule
+% \fancypagestyle{CTstylewithpage}{%
+%   \fancyhf{} % Clear all header and footer fields
+%   \renewcommand{\headrulewidth}{0pt} % Remove header rule
+%   \renewcommand{\footrulewidth}{0pt} % Remove footer rule
 
-  \setlength{\headheight}{28pt} % Set headheight to satisfy fancyhdr warning
-  \addtolength{\topmargin}{-2.5pt} % Adjust topmargin to compensate
+%   \setlength{\headheight}{28pt} % Set headheight to satisfy fancyhdr warning
+%   \addtolength{\topmargin}{-2.5pt} % Adjust topmargin to compensate
 
   
-  \fancyfoot[L]{%
-    \color{RoyalBlue}\CTMsenaiaddress
-  } % Left footer content
-  \fancyfoot[R]{%
-    \color{RoyalBlue}{\textbf{www.senaicimatec.com.br}\\
-    Página \thepage\ de \pageref*{LastPage}}%
-  } % Right footer content
-  \fancyfoot[C]{%
-    \vtop{\vskip-18pt\hbox{\includegraphics[width=2cm]{\CTMsealpath}}}
-      % @BUG  / POTENTIAL BUG HERE:
-        % It should get margins from global variables, but I cant make it work. So, I'm doing it manually.
-      % \fancyhead[C]{\vspace{0.2cm}\tikz[overlay,remember picture]\draw[RoyalBlue,line width=1pt] (current page.north west) ++ (\the\oddsidemargin,-2m) -- ++ (\textwidth,0);}
-      % \fancyhead[C]{\vspace{0.2cm}\tikz[overlay,remember picture]\draw[RoyalBlue,line width=1pt] (current page.north west) ++ (-\oddsidemargin,-0.5cm) -- ++ (\textwidth,0);}
-    \tikz[overlay,remember picture]\draw[RoyalBlue,line width=1pt] (current page.south west) ++ (2.4cm,3cm) -- ++ (\textwidth,0);
-  } % Center footer content
+%   \fancyfoot[L]{%
+%     \color{RoyalBlue}\CTMsenaiaddress
+%   } % Left footer content
+%   \fancyfoot[R]{%
+%     \color{RoyalBlue}{\textbf{www.senaicimatec.com.br}\\
+%     Página \thepage\ de \pageref*{LastPage}}%
+%   } % Right footer content
+%   \fancyfoot[C]{%
+%     \vtop{\vskip-18pt\hbox{\includegraphics[width=2cm]{\CTMsealpath}}}
+%       % @BUG  / POTENTIAL BUG HERE:
+%         % It should get margins from global variables, but I cant make it work. So, I'm doing it manually.
+%       % \fancyhead[C]{\vspace{0.2cm}\tikz[overlay,remember picture]\draw[RoyalBlue,line width=1pt] (current page.north west) ++ (\the\oddsidemargin,-2m) -- ++ (\textwidth,0);}
+%       % \fancyhead[C]{\vspace{0.2cm}\tikz[overlay,remember picture]\draw[RoyalBlue,line width=1pt] (current page.north west) ++ (-\oddsidemargin,-0.5cm) -- ++ (\textwidth,0);}
+%     \tikz[overlay,remember picture]\draw[RoyalBlue,line width=1pt] (current page.south west) ++ (2.4cm,3cm) -- ++ (\textwidth,0);
+%   } % Center footer content
 
-  \fancyheadoffset{0.03 cm}
-  \fancyhead[L]{
-    \begin{picture}
-    (0,0)\put(0,-18pt){\includegraphics[width=3.5cm]{CTsettings/figures/senai_logo.png}} 
-    \end{picture}
-  }
+%   \fancyheadoffset{0.03 cm}
+%   \fancyhead[L]{
+%     \begin{picture}
+%     (0,0)\put(0,-18pt){\includegraphics[width=3.5cm]{CTsettings/figures/senai_logo.png}} 
+%     \end{picture}
+%   }
 
-  \fancyhead[C]{\tikz[overlay,remember picture]\draw[RoyalBlue,line width=1pt] (current page.north west) ++ (2.4cm,-2cm) -- ++ (\textwidth,0);}
-}
+%   \fancyhead[C]{\tikz[overlay,remember picture]\draw[RoyalBlue,line width=1pt] (current page.north west) ++ (2.4cm,-2cm) -- ++ (\textwidth,0);}
+% }
 
 % creates a new page style without page number
 \fancypagestyle{CTstylenopage}{%
@@ -441,7 +453,23 @@
   }
 
   \fancyhead[C]{\tikz[overlay,remember picture]\draw[RoyalBlue,line width=1pt] (current page.north west) ++ (2.4cm,-2cm) -- ++ (\textwidth,0);}
+
+    \AddToShipoutPictureBG{\color{RoyalBlue}
+    \AtPageLowerLeft{\rule{\dimexpr 1in -\marginparsep\relax}{\paperheight}}}
 }
+
+
+
+%creates a new page style with page number on the right
+\fancypagestyle{CTstylewithpage}{%
+  \pagestyle{CTstylenopage}
+  \fancyfoot[R]{%
+    \color{RoyalBlue}{\textbf{www.senaicimatec.com.br}\\
+    Página \thepage\ de \pageref*{LastPage}}%
+  } % Right footer content
+}
+
+
 
 % redefine the plain page style, later in document it needs to be redefined again as CTstylewithpage
 % e.g.: \fancypagestyle{plain}{\pagestyle{CTstylewithpage}}
@@ -485,29 +513,31 @@
 %%%% DATABASE SETTINGS %%%%
 
 %% REVISIONS DATABASE SETTINGS %%
-\DTLnewdb{CTrevisions}
+\DTLnewdb{CTrevisionsDB}
 
 \newcommand{\CTrevision}[4]{ {
-	\DTLnewrow{CTrevisions}%
-	\DTLnewdbentry{CTrevisions}{date}{#1}%
-	\DTLnewdbentry{CTrevisions}{version}{#2}%
-	\DTLnewdbentry{CTrevisions}{desc}{#3}%
-	\DTLnewdbentry{CTrevisions}{author}{#4}%
+	\DTLnewrow{CTrevisionsDB}%
+	\DTLnewdbentry{CTrevisionsDB}{date}{#1}%
+	\DTLnewdbentry{CTrevisionsDB}{version}{#2}%
+	\DTLnewdbentry{CTrevisionsDB}{desc}{#3}%
+	\DTLnewdbentry{CTrevisionsDB}{author}{#4}%
 } }
 
-\def\makerevpage{
+
+\def\CTmakerevsection{
 	\pagenumbering{gobble}
+        \vspace{2cm}
+        {\noindent\CTtitlefontstyle{Histórico de Revisões}}\\
 	\begin{center}
 		\vspace*{0.5 cm}
-		\large{\textbf{HISTÓRICO DE REVISÕES}} \vspace{1 cm} \\
             \small{
-		\begin{tabular}{| m{1.6cm} | m{0.9cm} | m{6cm} |  m{5cm} |}
+		\begin{tabular}{| m{2cm} | m{1.4cm} | m{4.5cm} |  m{4cm} |}
 			\hline
 			\rowcolor[HTML]{9B9B9B}
 			\centering \bfseries Data & \centering \textbf{Versão} & \centering \textbf{Descrição} & \centering \textbf{Autor(es)}  \tabularnewline
 			\hline                  
-			\DTLforeach{CTrevisions}{\revdate=date, \revversion=version, \revdesc=desc, \revauthor=author}{
-                    \ifthenelse{\value{DTLrowi}<\DTLrowcount{CTrevisions}}{\centering \revdate & \revversion & \revdesc & \revauthor \tabularnewline \hline}
+			\DTLforeach{CTrevisionsDB}{\revdate=date, \revversion=version, \revdesc=desc, \revauthor=author}{
+                    \ifthenelse{\value{DTLrowi}<\DTLrowcount{CTrevisionsDB}}{\centering \revdate & \centering \revversion & \revdesc & {\tiny  \revauthor} \tabularnewline \hline}
                     {}}
                 \centering \revdate & \revversion & \revdesc & \revauthor \tabularnewline \hline
 		\end{tabular}}
@@ -515,6 +545,95 @@
 	\clearpage
 }
 
+
+%% SYMBOLS DATABASE SETTINGS %%
+\DTLnewdb{CTsymbolsDB}
+
+\newcommand{\CTsymbolinput}[2]{{
+	\DTLnewrow{CTsymbolsDB}%
+	\DTLnewdbentry{CTsymbolsDB}{CTsymrow}{#1}%
+	\DTLnewdbentry{CTsymbolsDB}{CTdescrow}{#2}%
+}}
+
+
+\def\CTmakesymbolsection{
+	\pagenumbering{gobble}
+        \vspace{2cm}
+        % {\Huge \CTAUXchapterfont{\MakeUppercase{Lista de Símbolos}}}\\
+        % \hspace{-20pt}
+        \noindent{\CTtitlefontstyle{Lista de Símbolos}}\\
+	\begin{center}
+		\vspace*{0.5 cm}
+            \small
+            \rowcolors{1}{WhiteIce}{white}
+		\begin{tabular}{| m{10cm} | m{6cm} |}
+			\hline
+			\rowcolor[HTML]{9B9B9B}
+			\centering \textbf{Símbolo} & \centering \textbf{Descrição} \tabularnewline
+			\hline                  
+			\DTLforeach{CTsymbolsDB}{\CTsymsymbol=CTsymrow, \CTsymdesc=CTdescrow}{
+                    \ifthenelse{\value{DTLrowi}<\DTLrowcount{CTsymbolsDB}}{\centering \CTsymsymbol & \centering \CTsymdesc \tabularnewline \hline}
+                    {}}
+                \centering \CTsymsymbol & \centering \CTsymdesc \tabularnewline \hline
+		\end{tabular}
+	\end{center}
+	\clearpage
+}
+
+
+% \def\CTmakesymbolsection{
+%         \newpage
+% 	\pagenumbering{gobble}
+%         \vspace{2cm}
+%         {\Huge \CTAUXchapterfont{\MakeUppercase{Lista de Símbolos}}}\\
+% 	\begin{center}
+% 		\vspace*{0.5 cm}
+%             \small{
+% 		\begin{tabular}{| m{4cm} | m{6cm} |}
+% 			\hline
+% 			\rowcolor[HTML]{9B9B9B}
+% 			\centering \textbf{Símbolo} & \centering \textbf{Descrição} \tabularnewline
+% 			\hline                  
+% 			\DTLforeach{CTsymbolsDB}{\CTsymsymbol=symbol, \CTsymdesc=description}{
+%                     \ifthenelse{\value{DTLrowi}<\DTLrowcount{CTsymbolsDB}}{\centering \CTsymsymbol & \centering \CTsymdesc \tabularnewline \hline}
+%                     {}}
+%                 \centering \CTsymsymbol & \CTsymdesc \tabularnewline \hline
+% 		\end{tabular}}
+% 	\end{center}
+% 	\clearpage
+% }
+
+
+
+
+
+
+%%%% INFO PAGE SETTINGS %%%%
+\def\CTmakeinfopage{
+    \newpage
+    \thispagestyle{CTstylenopage}
+    
+    { \noindent\CTtitlefontstyle{\CTMdocumenttype} \\}
+    \vspace*{0.5 cm}
+    \begin{table}[H]
+        \centering
+       \begin{tabular}{ |p{4cm}|p{10cm}|  }
+     \hline
+    Projeto & \CTMprojectname \\ \hline
+    Tipo de Documento & \CTMdocumenttype \\ \hline
+    Cliente/Empresa & \CTMclient \\ \hline
+    Escrito por & \CTMauthors \\ \hline
+    Líder Técnico & \CTMtechleader \\ \hline
+    Gerente de Projetos & \CTMprojectmanager \\ \hline
+    Revisado por & \CTMreviewedby \\ \hline
+    Aprovado por & \CTMapprovedby \\ \hline
+    
+    \end{tabular}
+    \end{table}
+
+    \CTmakerevsection
+    \clearpage
+}
 
 
 %%%% MATH SETTINGS %%%%
