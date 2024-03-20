@@ -1,0 +1,139 @@
+\documentclass[12pt, a4paper]{cimatec}
+
+%TOUCH IT - IMPORTANT TO SET DOCUMENT LEVEL
+%public, internal, restricted and confidential
+\CTsetDocumentLevel{restricted}
+%TOUCH IT
+
+
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
+\newcommand{\onlyinsubfile}[1]{#1}
+\newcommand{\notinsubfile}[1]{}
+\newcommand{\onlyonmainfile}[1]{}
+\newcommand{\onlyonpartfile}[1]{}
+\newcommand{\onlyonchapterfile}[1]{}
+\newcommand{\onlyonsectionfile}[1]{}
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
+
+
+
+
+
+
+
+
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
+\input{glossaries}
+\input{symbols}
+\usepackage{subfiles} % Best loaded last in the preamble
+% \CTmakeDraft
+\begin{document}
+% \CTprintDraftStatus
+\renewcommand{\onlyinsubfile}[1]{}
+\renewcommand{\notinsubfile}[1]{#1}
+\renewcommand{\onlyonmainfile}[1]{#1}
+\onlyonmainfile{
+\gdef\CTMcalibrefontpath{CTsettings/calibrefontfiles/}
+\setcalibrefont{\CTMcalibrefontpath}}
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
+
+
+
+
+%%% TOUCH IT - THE WHOLE DOCUMENT IS PARAMETRIZED BASED IN THESE
+\CTdocumenttype{Relatório Técnico}
+\CTdocumenttitle{Storage-HPC}
+\CTdocumentsubtitle{Macroentrega 5 }
+\CTdepartment{IA/BigData}
+\CTauthors{Equipe [Storage-HPC] SENAI-CIMATEC}
+\CTdocumentdate{Outubro/2023}
+\CTtechleader{Marcelo Silva}
+\CTprojectmanager{João da Hora}
+\CTreviewedby{Eu mesmo}
+\CTapprovedby{André Dantas}
+\CTprojectname{HPC Storage Monitoring Tool Prototype}
+\CTclient{Positivo Server}
+\CTdocumentlocation{SENAI CIMATEC - \CTMdepartment \\
+\CTMsenaiaddress }
+%%% TOUCH IT
+
+%Generate Front Page
+\CTmakefrontpage
+
+%Adds Revisions
+\CTrevision{28/08/2023}{1.0}{Início da elaboração do Relatório Técnico Final}{Equipe [StorageHPC] SENAI-CIMATEC}
+\CTrevision{26/12/2023}{1.2}{Revisão Inicial}{ Nero Augusto }
+
+
+
+
+%Generate Info Page
+\CTmakeinfopage
+
+%Print symbol list
+\CTmakesymbolsection
+
+%Print List of Acronyms
+\printglossary[type=\acronymtype, title=Lista de Abreviaturas e Siglas]
+\newpage
+
+%Print Glossary
+\printglossary
+\newpage
+
+
+% Print Table of Contents
+\tableofcontents
+\newpage
+
+% % Print list of tables
+% \listoftables
+% \newpage
+
+% % Print list of figures
+% \listoffigures
+% \newpage
+
+% % Print list of algorithms
+% \lstlistoflistings
+% \newpage
+
+
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯.
+\pagenumbering{arabic}
+\fancypagestyle{plain}{\pagestyle{CTstylewithpage}} 
+\pagestyle{plain}
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
+
+\CTresumo{Este é o resumo em português. }
+
+% \CTabstract{This is the English abstract.}
+
+
+
+
+
+
+
+
+\subfile{Parts/PartExample/part_example}
+
+
+
+
+
+
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯.
+\CTpart{Bibliografia}\label{part:bibliography}
+\bibliographystyle{seg}
+\bibliography{references.bib}
+
+% \CTpart{Definições}\label{part:definitions}
+% %Print Glossary
+% \printglossary
+% \newpage
+
+% %Print List of Acronyms
+% \printglossary[type=\acronymtype, title=Acrônimos]
+\end{document}
+%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯.

@@ -1,0 +1,8 @@
+- Add support to EN and other languages; It can be done with and extra language file e.g. 'cimatec-lang-br.cfg' or 'cimatec-lang-en.cfg', that have all strings parametrized
+- Encapsulated and hide code better; It should be more resilient to "clever users"
+- Have helper tools.
+  - One that converts all figures to '<figname>_lowres.jpg' and compile document in draft (low res) mode
+  - One that given a file tree structure, it populate files with necessary code
+- Info Page
+- Remissive Index
+- Integration with Python? 
