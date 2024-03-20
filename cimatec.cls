@@ -384,42 +384,6 @@
 
 
 
-% creates a new page style with page number on the right
-% \fancypagestyle{CTstylewithpage}{%
-%   \fancyhf{} % Clear all header and footer fields
-%   \renewcommand{\headrulewidth}{0pt} % Remove header rule
-%   \renewcommand{\footrulewidth}{0pt} % Remove footer rule
-
-%   \setlength{\headheight}{28pt} % Set headheight to satisfy fancyhdr warning
-%   \addtolength{\topmargin}{-2.5pt} % Adjust topmargin to compensate
-
-  
-%   \fancyfoot[L]{%
-%     \color{RoyalBlue}\CTMsenaiaddress
-%   } % Left footer content
-%   \fancyfoot[R]{%
-%     \color{RoyalBlue}{\textbf{www.senaicimatec.com.br}\\
-%     Página \thepage\ de \pageref*{LastPage}}%
-%   } % Right footer content
-%   \fancyfoot[C]{%
-%     \vtop{\vskip-18pt\hbox{\includegraphics[width=2cm]{\CTMsealpath}}}
-%       % @BUG  / POTENTIAL BUG HERE:
-%         % It should get margins from global variables, but I cant make it work. So, I'm doing it manually.
-%       % \fancyhead[C]{\vspace{0.2cm}\tikz[overlay,remember picture]\draw[RoyalBlue,line width=1pt] (current page.north west) ++ (\the\oddsidemargin,-2m) -- ++ (\textwidth,0);}
-%       % \fancyhead[C]{\vspace{0.2cm}\tikz[overlay,remember picture]\draw[RoyalBlue,line width=1pt] (current page.north west) ++ (-\oddsidemargin,-0.5cm) -- ++ (\textwidth,0);}
-%     \tikz[overlay,remember picture]\draw[RoyalBlue,line width=1pt] (current page.south west) ++ (2.4cm,3cm) -- ++ (\textwidth,0);
-%   } % Center footer content
-
-%   \fancyheadoffset{0.03 cm}
-%   \fancyhead[L]{
-%     \begin{picture}
-%     (0,0)\put(0,-18pt){\includegraphics[width=3.5cm]{CTsettings/figures/senai_logo.png}} 
-%     \end{picture}
-%   }
-
-%   \fancyhead[C]{\tikz[overlay,remember picture]\draw[RoyalBlue,line width=1pt] (current page.north west) ++ (2.4cm,-2cm) -- ++ (\textwidth,0);}
-% }
-
 % creates a new page style without page number
 \fancypagestyle{CTstylenopage}{%
   \fancyhf{} % Clear all header and footer fields
