@@ -1,35 +1,71 @@
-%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
-\documentclass[../../../../main.tex]{subfiles}
-\graphicspath{ {\subfix{../../../../CTsettings/figures/}} {./figures/} {../figures/} {../../figures/}}
-%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
+% %%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
+% \documentclass[../../../../main.tex]{subfiles}
+% \graphicspath{ {\subfix{../../../../CTsettings/figures/}} {./figures/} {../figures/} {../../figures/}}
+% %%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
 
 
-%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
-\begin{document}
-\onlyinsubfile{
-    \renewcommand{\onlyinsubfile}[1]{}
-    \renewcommand{\notinsubfile}[1]{#1}
+% %%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
+% \begin{document}
+% \onlyinsubfile{
+%     \renewcommand{\onlyinsubfile}[1]{}
+%     \renewcommand{\notinsubfile}[1]{#1}
 
-    \renewcommand{\onlyonmainfile}[1]{}
-    \renewcommand{\onlyonpartfile}[1]{}
-    \renewcommand{\onlyonchapterfile}[1]{}
-    \renewcommand{\onlyonsectionfile}[1]{#1}
+%     \renewcommand{\onlyonmainfile}[1]{}
+%     \renewcommand{\onlyonpartfile}[1]{}
+%     \renewcommand{\onlyonchapterfile}[1]{}
+%     \renewcommand{\onlyonsectionfile}[1]{#1}
 
-    \gdef\CTMcalibrefontpath{../../../../CTsettings/calibrefontfiles/}
-    \setcalibrefont{\CTMcalibrefontpath}
+%     \gdef\CTMcalibrefontpath{../../../../CTsettings/calibrefontfiles/}
+%     \setcalibrefont{\CTMcalibrefontpath}
     
-    \fancypagestyle{plain}{\pagestyle{CTstylewithpage}}
-    \pagestyle{CTstylewithpage}
-}
-%%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
+%     \fancypagestyle{plain}{\pagestyle{CTstylewithpage}}
+%     \pagestyle{CTstylewithpage}
+% }
+% %%%%%%% DO NOT TOUCH IT! Or it might crash... dont come asking for support later ¯\_(ツ)_/¯. 
 
-\onlyonsectionfile{
-}
+% \onlyonsectionfile{
+% }
+
+% \begin{filecontents}{CTConfigSection.cthlp}
+% \documentclass[../../../../main.tex]{subfiles}
+% \graphicspath{ {\subfix{../../../../CTsettings/figures/}} {./figures/} {../figures/} {../../figures/}}
+
+
+% \begin{document}
+% \onlyinsubfile{
+%     \renewcommand{\onlyinsubfile}[1]{}
+%     \renewcommand{\notinsubfile}[1]{#1}
+
+%     \renewcommand{\onlyonmainfile}[1]{}
+%     \renewcommand{\onlyonpartfile}[1]{}
+%     \renewcommand{\onlyonchapterfile}[1]{}
+%     \renewcommand{\onlyonsectionfile}[1]{#1}
+
+%     \gdef\CTMcalibrefontpath{../../../../CTsettings/calibrefontfiles/}
+%     \setcalibrefont{\CTMcalibrefontpath}
+    
+%     \fancypagestyle{plain}{\pagestyle{CTstylewithpage}}
+%     \pagestyle{CTstylewithpage}
+% }
+
+% \end{filecontents}
 
 
 
 
-\section{Monalisa Variant}
+% \input{../../../../CTConfigSection.cthlp}
+% \input{CTConfigSection.cthlp}
+
+
+
+% \input{CTsettings/DivisionAuxiliaries/section.cthlp}
+
+% \section{Monalisa Variant}
+
+\input{macros.lua}
+\mycustomsection{Monalisa Variant}
+
+% \CTbeginSection{Monalisa Variant}
 
 
 The \quotes{Monalisa} potato, as in Figure~\ref{fig:potato_monalisa}, scientifically known as Solanum tuberosum, is a popular and widely cultivated starchy tuber that belongs to the Solanaceae family. This unique variety is renowned for its distinctive appearance, which resembles the enigmatic smile of Leonardo da Vinci's famous painting, the "Mona Lisa." The Monalisa potato features a smooth, pale yellow to light brown skin with shallow eyes, making it visually distinct from other potato varieties.
