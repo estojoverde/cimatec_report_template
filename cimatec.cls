@@ -130,6 +130,9 @@
 
 \usepackage{etoolbox} % allows boolean logic inside model
 
+
+% \usepackage{filecontents} % allows the definition of different logical files inside the same archive. 
+
 %\usepackage{titletoc} %enables toc personalization
 
 % %%%%%% GENERAL SETTINGS %%%%%%
@@ -833,6 +836,65 @@
 
 
 % %%%%%% GENERAL MACROS %%%%%%
+
+% \begin{filecontents}{CTConfigSection.cthlp}
+% % \newcommand{\CTbeginSection}[1]{%
+% \newcommand{\CTbeginSection}{%
+%     \documentclass[../../../../main.tex]{subfiles}
+%     \graphicspath{ {\subfix{../../../../CTsettings/figures/}} {./figures/} {../figures/} {../../figures/}}
+    
+    
+%     \begin{document}
+    
+%     \onlyinsubfile{
+%         \renewcommand{\onlyinsubfile}[1]{}
+%         \renewcommand{\notinsubfile}[1]{#1}
+    
+%         \renewcommand{\onlyonmainfile}[1]{}
+%         \renewcommand{\onlyonpartfile}[1]{}
+%         \renewcommand{\onlyonchapterfile}[1]{}
+%         \renewcommand{\onlyonsectionfile}[1]{#1}
+    
+%         \gdef\CTMcalibrefontpath{../../../../CTsettings/calibrefontfiles/}
+%         \setcalibrefont{\CTMcalibrefontpath}
+        
+%         \fancypagestyle{plain}{\pagestyle{CTstylewithpage}}
+%         \pagestyle{CTstylewithpage}
+%     }
+    
+%     % \section{#1} 
+
+% }
+% \end{filecontents}
+
+% \begin{filecontents}{CTConfigSection.cthlp}
+% \documentclass[../../../../main.tex]{subfiles}
+% \graphicspath{ {\subfix{../../../../CTsettings/figures/}} {./figures/} {../figures/} {../../figures/}}
+
+
+% \begin{document}
+% \onlyinsubfile{
+%     \renewcommand{\onlyinsubfile}[1]{}
+%     \renewcommand{\notinsubfile}[1]{#1}
+
+%     \renewcommand{\onlyonmainfile}[1]{}
+%     \renewcommand{\onlyonpartfile}[1]{}
+%     \renewcommand{\onlyonchapterfile}[1]{}
+%     \renewcommand{\onlyonsectionfile}[1]{#1}
+
+%     \gdef\CTMcalibrefontpath{../../../../CTsettings/calibrefontfiles/}
+%     \setcalibrefont{\CTMcalibrefontpath}
+    
+%     \fancypagestyle{plain}{\pagestyle{CTstylewithpage}}
+%     \pagestyle{CTstylewithpage}
+% }
+
+% \end{filecontents}
+
+
+
+
+
 % %%%% PAGE LAYOUT MACROS %%%%
 % %%%% DATABASE MACROS %%%%
 % %%%% MATH MACROS %%%%
